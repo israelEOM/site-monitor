@@ -29,7 +29,8 @@ services:
 
     # db mysql
     db:
-        image: mysql:5.7.22
+        platform: linux/amd64
+        image: mysql:5.7.29
         restart: unless-stopped
         environment:
             MYSQL_DATABASE: ${DB_DATABASE:-laravel}
@@ -44,17 +45,18 @@ services:
             - laravel
 
     # queue
-    queue:
-        image: especializati/laravel9-app
-        restart: unless-stopped
-        command: "php artisan queue:work"
-        volumes:
-            - ./:/var/www
-        depends_on:
-            - redis
-            - app
-        networks:
-            - laravel
+    # queue:
+    #     platform: linux/x86_64
+    #     image: especializati/laravel9-app
+    #     restart: unless-stopped
+    #     command: "php artisan queue:work"
+    #     volumes:
+    #         - ./:/var/www
+    #     depends_on:
+    #         - redis
+    #         - app
+    #     networks:
+    #         - laravel
 
     # redis
     redis:
